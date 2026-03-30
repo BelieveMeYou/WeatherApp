@@ -1,0 +1,28 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "A weather web app built with vanilla JS and the WeatherAPI: search any city for current conditions and forecasts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BelieveMeYou/WeatherApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/BelieveMeYou/WeatherApp/issues"
+  },
+  
+  "homepage": "https://github.com/BelieveMeYou/WeatherApp#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}
