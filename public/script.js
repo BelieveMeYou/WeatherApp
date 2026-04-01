@@ -14,9 +14,10 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         }
         results.innerHTML = `
           <h2>${data.location.name}</h2>
+          <p><img src=${data.current.condition.icon}></p>
+          <p>Condition: ${data.current.condition.text}</p>
           <p>Temperature: ${data.current.temp_f}°F</p>
           <p>Feels like: ${data.current.feelslike_f}°F</p>
-          <p>Condition: ${data.current.condition.text} <img src=${data.current.condition.icon}></p>
           <p>Wind Speed: ${data.current.wind_mph} mph</p>
         `;
 
@@ -27,8 +28,8 @@ document.querySelector('#search-btn').addEventListener('click', () => {
             card.innerHTML = `
                 <p>${label}</p>
                 <img src="${forecastDays[i].day.condition.icon}">
-                <p>${forecastDays[i].day.avgtemp_f}°F</p>
                 <p>${forecastDays[i].day.condition.text}</p>
+                <p>${forecastDays[i].day.avgtemp_f}°F</p>
             `;
         });
       })

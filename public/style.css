@@ -9,6 +9,16 @@ body {
     padding: 40px;
 }
 
+button{
+    background-color: #636B2F;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4e5424;
+}
+
 #results {
     background-color: #D4DE95;
     margin: 20px;
@@ -32,13 +42,22 @@ input, button{
 
 .container {
     display: flex;
-    flex-wrap: wrap;
-    background-color: #636B2F;
+    gap: 10px;
+    background-color: transparent;
+    margin-top: 10px;
 }
 
 .container div {
-    background-color: #BAC095;
-    margin: 10px;
+    background-color: #D4DE95;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    margin: 0;
     padding: 20px;
-    font-size: 30px;
+    font-size: 16px;
+    text-align: center;
+    min-width: 140px;
+}
+
+img{
+    vertical-align: middle;
 }
