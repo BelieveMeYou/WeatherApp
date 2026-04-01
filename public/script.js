@@ -21,9 +21,9 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         `;
 
         const forecastDays = data.forecast.forecastday;
-        const date = new Date(forecastDays[i].date + 'T00:00:00');
-        const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
         document.querySelectorAll('.container div').forEach((card, i) => {
+            const date = new Date(forecastDays[i].date + 'T00:00:00');
+            const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
             card.innerHTML = `
                 <p>${label}</p>
                 <img src="${forecastDays[i].day.condition.icon}">
