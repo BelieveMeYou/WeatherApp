@@ -1,3 +1,20 @@
+function setBackground(condition) {
+    const c = condition.toLowerCase();
+    if (c.includes('sun') || c.includes('clear')) {
+        document.body.style.background = 'linear-gradient(to bottom, #f7b733, #fc4a1a)';
+      } else if (c.includes('partly cloudy')) {
+        document.body.style.background = 'linear-gradient(to bottom, #f7b733, #757F9A)';
+      }else if (c.includes('rain') || c.includes('drizzle')) {
+        document.body.style.background = 'linear-gradient(to bottom, #4b6cb7, #182848)';
+      } else if (c.includes('snow')) {
+        document.body.style.background = 'linear-gradient(to bottom, #e0eafc, #cfdef3)';
+      } else if (c.includes('cloud') || c.includes('overcast')) {
+        document.body.style.background = 'linear-gradient(to bottom, #757F9A, #D7DDE8)';
+      } else {
+        document.body.style.background = '#BAC095';
+      }
+}
+
 document.querySelector('#search-btn').addEventListener('click', () => {
     const city = document.querySelector('#city-input').value;
     const results = document.querySelector('#results');
@@ -13,6 +30,7 @@ document.querySelector('#search-btn').addEventListener('click', () => {
             results.innerHTML = `<p>City not found. Try again.</p>`;
             return;
         }
+        setBackground(data.current.condition.text);
         results.style.display = 'block';
         results.innerHTML = `
           <h2>${data.location.name}</h2>
