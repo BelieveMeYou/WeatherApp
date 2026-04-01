@@ -1,6 +1,7 @@
 document.querySelector('#search-btn').addEventListener('click', () => {
     const city = document.querySelector('#city-input').value;
     const results = document.querySelector('#results');
+    
     if(!city){
         results.innerHTML = '<p>Please enter a city name.</p>';
         return;
@@ -12,6 +13,7 @@ document.querySelector('#search-btn').addEventListener('click', () => {
             results.innerHTML = `<p>City not found. Try again.</p>`;
             return;
         }
+        results.style.display = 'block';
         results.innerHTML = `
           <h2>${data.location.name}</h2>
           <p><img src=${data.current.condition.icon}></p>
@@ -22,6 +24,7 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         `;
 
         const forecastDays = data.forecast.forecastday;
+        document.querySelector('.container').style.display = 'flex';
         document.querySelectorAll('.container div').forEach((card, i) => {
             const date = new Date(forecastDays[i].date + 'T00:00:00');
             const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
@@ -35,5 +38,11 @@ document.querySelector('#search-btn').addEventListener('click', () => {
       })
       .catch(() => {
         results.innerHTML = '<p>Something went wrong. Check your connection.</p>';
-      });
-  });
+    });
+});
+
+document.querySelector('#city-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        document.querySelector('#search-btn').click();
+    }
+});

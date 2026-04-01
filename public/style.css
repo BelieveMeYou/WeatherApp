@@ -20,6 +20,7 @@ button:hover {
 }
 
 #results {
+    display: none;
     background-color: #D4DE95;
     margin: 20px;
     padding: 20px;
@@ -41,7 +42,7 @@ input, button{
 }
 
 .container {
-    display: flex;
+    display: none;
     gap: 10px;
     background-color: transparent;
     margin-top: 10px;
