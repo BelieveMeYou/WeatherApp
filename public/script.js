@@ -55,6 +55,7 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         });
       })
       .catch(() => {
+        console.log(err);
         results.innerHTML = '<p>Something went wrong. Check your connection.</p>';
     });
 });
@@ -64,3 +65,47 @@ document.querySelector('#city-input').addEventListener('keydown', (e) => {
         document.querySelector('#search-btn').click();
     }
 });
+
+const cityPool = ['Tokyo', 'London', 'Paris', 'Sydney', 'Dubai', 'Toronto', 'Mumbai', 'Berlin', 'Cairo', 'Bangkok', 'San Francisco', 'New York', 'Seoul', 'Saigon', 'Warsaw', 'Berlin', 'Rio de Janeiro'];
+const cityWeatherData = [];
+let cityIndex = 3;
+async function loadSidebarCities() {
+    for (const city of cityPool) {
+        const res = await fetch(`/weather?city=${city}`);
+        const data = await res.json();
+        if (!data.error) cityWeatherData.push(data);
+    }
+    const sidebar = document.querySelector('#sidebar'); 
+    cityWeatherData.slice(0, 3).forEach(data => {
+        sidebar.appendChild(createSidebarCard(data));
+    });
+    setInterval(cycleCity, 6000);
+}
+function createSidebarCard(data) {
+    const card = document.createElement('div');
+    card.classList.add('sidebar-card');
+    card.innerHTML = `
+      <p><strong>${data.location.name}</strong></p>
+      <img src="${data.current.condition.icon}">
+      <p>${data.current.temp_f}°F</p>
+      <p>${data.current.condition.text}</p>
+    `;
+    return card; 
+}
+
+function cycleCity() {
+    const sidebar = document.querySelector('#sidebar');
+    const cards = sidebar.querySelectorAll('.sidebar-card');
+
+    cards.forEach(card => card.classList.add('sidebar-removing'));
+
+    setTimeout(() => {
+      sidebar.innerHTML = '';
+      for (let j = 0; j < 3; j++) {
+        sidebar.appendChild(createSidebarCard(cityWeatherData[cityIndex % cityWeatherData.length]));
+        cityIndex++;
+      }
+    }, 500);
+  }
+
+  loadSidebarCities();
