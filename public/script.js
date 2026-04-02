@@ -55,7 +55,6 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         });
       })
       .catch(() => {
-        console.log(err);
         results.innerHTML = '<p>Something went wrong. Check your connection.</p>';
     });
 });
@@ -66,7 +65,7 @@ document.querySelector('#city-input').addEventListener('keydown', (e) => {
     }
 });
 
-const cityPool = ['Tokyo', 'London', 'Paris', 'Sydney', 'Dubai', 'Toronto', 'Mumbai', 'Berlin', 'Cairo', 'Bangkok', 'San Francisco', 'New York', 'Seoul', 'Saigon', 'Warsaw', 'Berlin', 'Rio de Janeiro'];
+const cityPool = ['Tokyo', 'London', 'Paris', 'Sydney', 'Dubai', 'Toronto', 'Mumbai', 'Berlin', 'Cairo', 'Bangkok', 'San Francisco', 'New York', 'Seoul', 'Saigon', 'Warsaw', 'Berlin', 'Rio de Janeiro', 'Singapore', 'Taipei', 'Sydney', 'Los Angeles'];
 const cityWeatherData = [];
 let cityIndex = 3;
 async function loadSidebarCities() {
