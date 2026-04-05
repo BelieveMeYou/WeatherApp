@@ -1,10 +1,13 @@
+let unit = 'F';
+
 function setBackground(condition) {
     const c = condition.toLowerCase();
     if (c.includes('sun') || c.includes('clear')) {
         document.body.style.background = 'linear-gradient(to bottom, #f7b733, #fc4a1a)';
+        
       } else if (c.includes('partly cloudy')) {
         document.body.style.background = 'linear-gradient(to bottom, #f7b733, #757F9A)';
-      }else if (c.includes('rain') || c.includes('drizzle')) {
+      } else if (c.includes('rain') || c.includes('drizzle') || c.includes('mist')) {
         document.body.style.background = 'linear-gradient(to bottom, #4b6cb7, #182848)';
       } else if (c.includes('snow')) {
         document.body.style.background = 'linear-gradient(to bottom, #e0eafc, #cfdef3)';
@@ -23,6 +26,10 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         results.innerHTML = '<p>Please enter a city name.</p>';
         return;
     }
+    
+    results.style.display = 'block';
+    results.innerHTML = '<p>Loading...</p>';
+
     fetch(`/weather?city=${city}`)
       .then(res => res.json())
       .then(data => {
@@ -31,14 +38,19 @@ document.querySelector('#search-btn').addEventListener('click', () => {
             return;
         }
         setBackground(data.current.condition.text);
+        localStorage.setItem('lastCity', city);
         results.style.display = 'block';
+        const temp = unit === 'F' ? data.current.temp_f : data.current.temp_c;
+        const feelsLike = unit === 'F' ? data.current.feelslike_f : data.current.feelslike_c;
+        const symbol = unit === 'F' ? '°F' : '°C';
         results.innerHTML = `
-          <h2>${data.location.name}</h2>
-          <p><img src=${data.current.condition.icon}></p>
-          <p>Condition: ${data.current.condition.text}</p>
-          <p>Temperature: ${data.current.temp_f}°F</p>
-          <p>Feels like: ${data.current.feelslike_f}°F</p>
-          <p>Wind Speed: ${data.current.wind_mph} mph</p>
+          <div class="card-inner">
+            <h2>${data.location.name} <img src=${data.current.condition.icon}></h2>
+            <p>Condition: ${data.current.condition.text}</p>
+            <p>Temperature: ${temp}${symbol}</p>
+            <p>Feels like: ${feelsLike}${symbol}</p>
+            <p>Wind Speed: ${data.current.wind_mph} mph</p>
+          </div>
         `;
 
         const forecastDays = data.forecast.forecastday;
@@ -46,15 +58,20 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         document.querySelectorAll('.container div').forEach((card, i) => {
             const date = new Date(forecastDays[i].date + 'T00:00:00');
             const label = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+            const temp = unit === 'F' ? forecastDays[i].day.avgtemp_f : forecastDays[i].day.avgtemp_c;
+            const symbol = unit === 'F' ? '°F' : '°C';
             card.innerHTML = `
+            <div class="card-inner">
                 <p>${label}</p>
                 <img src="${forecastDays[i].day.condition.icon}">
                 <p>${forecastDays[i].day.condition.text}</p>
-                <p>${forecastDays[i].day.avgtemp_f}°F</p>
+                <p>${temp}${symbol}</p>
+            </div>
             `;
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         results.innerHTML = '<p>Something went wrong. Check your connection.</p>';
     });
 });
@@ -83,11 +100,15 @@ async function loadSidebarCities() {
 function createSidebarCard(data) {
     const card = document.createElement('div');
     card.classList.add('sidebar-card');
+    const temp = unit === 'F' ? data.current.temp_f : data.current.temp_c;
+    const symbol = unit === 'F' ? '°F' : '°C';
     card.innerHTML = `
+    <div class="card-inner">
       <p><strong>${data.location.name}</strong></p>
       <img src="${data.current.condition.icon}">
-      <p>${data.current.temp_f}°F</p>
+      <p>${temp}${symbol}</p>
       <p>${data.current.condition.text}</p>
+    </div>
     `;
     return card; 
 }
@@ -108,3 +129,19 @@ function cycleCity() {
   }
 
   loadSidebarCities();
+  const lastCity = localStorage.getItem('lastCity');
+  if (lastCity) {
+    document.querySelector('#city-input').value = lastCity;
+    document.querySelector('#search-btn').click();
+  }
+
+  document.querySelector('#unit-toggle').addEventListener('click', () =>{
+    unit = unit === 'F' ? 'C' : 'F';
+    document.querySelector('#unit-toggle').textContent = unit === 'F' ? 'Switch to °C' : 'Switch to °F';
+    const lastCity = localStorage.getItem('lastCity');
+    if (lastCity) {
+      document.querySelector('#city-input').value = lastCity;
+      document.querySelector('#search-btn').click();
+    }
+    cycleCity;
+  });
