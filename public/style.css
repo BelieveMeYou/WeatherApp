@@ -20,21 +20,17 @@ button:hover {
     background-color: #4e5424;
 }
 
-.card-inner {
-    background-color: rgba(255, 255, 255, 0.792);
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 10px;
-}
-
 #results {
     display: none;
-    background-color: #D4DE95;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 20px;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     min-width: 300px;
+    text-align: center;
 }
 
 h1 {
@@ -58,6 +54,9 @@ input, button{
 
 .container > div {
     background-color: #D4DE95;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     margin: 0;
@@ -93,6 +92,9 @@ img{
 .sidebar-card{
     background-color: #D4DE95;
     border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
     width: 140px;
     font-size: 13px;

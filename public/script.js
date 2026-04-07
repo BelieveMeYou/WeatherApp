@@ -1,4 +1,19 @@
+//import { useState } from 'react';
+
 let unit = 'F';
+
+/*function ToggleButton() {
+    const [isOn, setIsOn] = useState(false);
+  
+    return (
+      <button 
+        onClick={() => setIsOn(!isOn)}
+        style={{ backgroundColor: isOn ? "green" : "gray" }}
+      >
+        {isOn ? "ON" : "OFF"}
+      </button>
+    );
+  }*/
 
 function setBackground(condition) {
     const c = condition.toLowerCase();
@@ -44,13 +59,12 @@ document.querySelector('#search-btn').addEventListener('click', () => {
         const feelsLike = unit === 'F' ? data.current.feelslike_f : data.current.feelslike_c;
         const symbol = unit === 'F' ? '°F' : '°C';
         results.innerHTML = `
-          <div class="card-inner">
-            <h2>${data.location.name} <img src=${data.current.condition.icon}></h2>
+            <h2>${data.location.name} </h2>
+            <p><img src=${data.current.condition.icon}></p>
             <p>Condition: ${data.current.condition.text}</p>
             <p>Temperature: ${temp}${symbol}</p>
             <p>Feels like: ${feelsLike}${symbol}</p>
             <p>Wind Speed: ${data.current.wind_mph} mph</p>
-          </div>
         `;
 
         const forecastDays = data.forecast.forecastday;
@@ -61,12 +75,10 @@ document.querySelector('#search-btn').addEventListener('click', () => {
             const temp = unit === 'F' ? forecastDays[i].day.avgtemp_f : forecastDays[i].day.avgtemp_c;
             const symbol = unit === 'F' ? '°F' : '°C';
             card.innerHTML = `
-            <div class="card-inner">
                 <p>${label}</p>
                 <img src="${forecastDays[i].day.condition.icon}">
                 <p>${forecastDays[i].day.condition.text}</p>
                 <p>${temp}${symbol}</p>
-            </div>
             `;
         });
       })
@@ -102,13 +114,15 @@ function createSidebarCard(data) {
     card.classList.add('sidebar-card');
     const temp = unit === 'F' ? data.current.temp_f : data.current.temp_c;
     const symbol = unit === 'F' ? '°F' : '°C';
+    card.addEventListener('click', () => {                                                                                                                                                                        
+        document.querySelector('#city-input').value = data.location.name;                                                                                                                                           
+        document.querySelector('#search-btn').click();                                                                                                                                                              
+    });
     card.innerHTML = `
-    <div class="card-inner">
       <p><strong>${data.location.name}</strong></p>
       <img src="${data.current.condition.icon}">
       <p>${temp}${symbol}</p>
       <p>${data.current.condition.text}</p>
-    </div>
     `;
     return card; 
 }
