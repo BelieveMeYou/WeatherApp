@@ -1,4 +1,4 @@
-# # MyWeatherApp
+# MyWeatherApp
 A weather web app that shows current conditions and a 3-day forecast for any city in the world.
 
 ## Features
