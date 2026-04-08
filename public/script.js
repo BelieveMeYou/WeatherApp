@@ -96,7 +96,7 @@ document.querySelector('#city-input').addEventListener('keydown', (e) => {
 
 const cityPool = ['Tokyo', 'London', 'Paris', 'Sydney', 'Dubai', 'Toronto', 'Mumbai', 'Berlin', 'Cairo', 'Bangkok', 'San Francisco', 'New York', 'Seoul', 'Saigon', 'Warsaw', 'Berlin', 'Rio de Janeiro', 'Singapore', 'Taipei', 'Sydney', 'Los Angeles'];
 const cityWeatherData = [];
-let cityIndex = 3;
+let cityIndex = 4;
 async function loadSidebarCities() {
     for (const city of cityPool) {
         const res = await fetch(`/weather?city=${city}`);
@@ -104,7 +104,7 @@ async function loadSidebarCities() {
         if (!data.error) cityWeatherData.push(data);
     }
     const sidebar = document.querySelector('#sidebar'); 
-    cityWeatherData.slice(0, 3).forEach(data => {
+    cityWeatherData.slice(0, 4).forEach(data => {
         sidebar.appendChild(createSidebarCard(data));
     });
     setInterval(cycleCity, 6000);
@@ -135,7 +135,7 @@ function cycleCity() {
 
     setTimeout(() => {
       sidebar.innerHTML = '';
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < 4; j++) {
         sidebar.appendChild(createSidebarCard(cityWeatherData[cityIndex % cityWeatherData.length]));
         cityIndex++;
       }
