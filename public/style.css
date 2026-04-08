@@ -77,14 +77,18 @@ img{
     vertical-align: middle;
 }
 
-#sidebar {                                                                                                                                                                                                    
+#sidebar {
     position: fixed;
     right: 20px;
     top: 20px;
+    padding: 10px;
+    gap: 10px;
     transform: none;
+    display: flex;
+    flex-direction: column;
     max-height: calc(100vh - 40px);
     overflow: hidden;
-  }
+}
 
 .sidebar-card{
     background-color: #D4DE95;
