@@ -84,8 +84,8 @@ img{
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-height: 70vh;
+    gap: 6px;
+    max-height: 62vh;
     overflow: hidden;
 }
 
@@ -96,7 +96,7 @@ img{
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 10px;
-    width: 140px;
+    width: 120px;
     font-size: 13px;
     text-align: center;
     animation: slideIn 0.5s ease;
